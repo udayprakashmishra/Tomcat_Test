@@ -2,19 +2,14 @@ pipeline {
   agent any
   stages {
     stage('Build Application') {
-      scm {
-        github('https://github.com/udayprakashmishra/Tomcat_Test.git', 'main')
-      }
-
-      triggers {
-        scm("* * * * *")
-      }
+      
       steps {
+      github('https://github.com/udayprakashmishra/Tomcat_Test.git', 'main')
+        scm("* * * * *")
         maven('clean package')
-      }
-      publishers {
         archiveArtifacts('**/*.jar')
       }
+      
 
       post {
         success {

@@ -1,20 +1,27 @@
 pipeline {
-    agent any
-    stages {
-        stage('Build Application') {
-             scm {
-                  github('https://github.com/udayprakashmishra/Tomcat_Test.git', 'main')
-             }
-             triggers {
-                githubPush()
-                   }
-            post {
-                success {
-                    echo "Now Archiving the Artifacts...."
-                    archiveArtifacts artifacts: '**/*.war'
-                }
-            }
+  agent any
+  stages {
+    stage('Build Application') {
+      scm {
+        github('https://github.com/udayprakashmishra/Tomcat_Test.git', 'main')
+      }
+
+      triggers {
+        scm("* * * * *")
+      }
+      steps {
+        maven('clean package')
+      }
+      publishers {
+        archiveArtifacts('**/*.jar')
+      }
+
+      post {
+        success {
+          echo "Now Archiving the Artifacts...."
         }
-        
+      }
     }
+  }
+
 }

@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('Build Application') {
              scm {
-                  github('jenkinsci/job-dsl-plugin', 'master')
+                  github('https://github.com/udayprakashmishra/Tomcat_Test.git', 'main')
              }
              triggers {
                 githubPush()
@@ -15,20 +15,6 @@ pipeline {
                 }
             }
         }
-        stage('Deploy in Staging Environment'){
-            steps{
-                build job: 'Deploy_Application_Staging_Env'
- 
-            }
-            
-        }
-        stage('Deploy to Production'){
-            steps{
-                timeout(time:5, unit:'DAYS'){
-                    input message:'Approve PRODUCTION Deployment?'
-                }
-                build job: 'Deploy_Application_Prod_Env'
-            }
-        }
+        
     }
 }

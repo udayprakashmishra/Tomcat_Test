@@ -17,7 +17,9 @@ pipeline {
         }
         
         stage('Deploy in Dev') {
+          steps {
         build job: 'DSLMavenCodePipelinePackage_Deploy'
+        }
         }
       
   }

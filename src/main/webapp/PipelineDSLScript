@@ -15,6 +15,10 @@ pipeline {
                 }
             }
         }
+        
+        stage('Build Application') {
+        build job: 'DSLMavenCodePipelinePackage_Deploy'
+        }
       
   }
 }

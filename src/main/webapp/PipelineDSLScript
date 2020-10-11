@@ -21,6 +21,12 @@ pipeline {
         build job: 'DSLMavenCodePipelinePackage_Deploy'
         }
         }
-      
+        
+        stage('Deploy in Prod') {
+          steps {
+        build job: 'DSLMavenCodePipelinePackage_Deploy_PROD'
+        }
+        }
+        
   }
 }

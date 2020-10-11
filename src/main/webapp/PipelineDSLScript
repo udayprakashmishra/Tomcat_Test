@@ -2,20 +2,19 @@ pipeline {
   agent any
   stages {
     stage('Build Application') {
-      
-      steps {
-      github('https://github.com/udayprakashmishra/Tomcat_Test.git', 'main')
-        scm("* * * * *")
-        maven('clean package')
-        archiveArtifacts('**/*.jar')
-      }
-      
-
-      post {
-        success {
-          echo "Now Archiving the Artifacts...."
+    
+      stage('Build Application') {
+            steps {
+                sh 'mvn -f Tomcat_Test/pom.xml clean package'
+            }
+            post {
+                success {
+                    echo "Now Archiving the Artifacts...."
+                    archiveArtifacts artifacts: '**/*.war'
+                }
+            }
         }
-      }
+      
     }
   }
 
